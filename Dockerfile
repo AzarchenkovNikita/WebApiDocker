@@ -8,10 +8,9 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["WebApiDocker/WebApiDocker.csproj", "WebApiDocker/"]
-RUN dotnet restore "WebApiDocker/WebApiDocker.csproj"
+COPY ["WebApiDocker.csproj", "./"]
+RUN dotnet restore "WebApiDocker.csproj"
 COPY . .
-WORKDIR "/src/WebApiDocker"
 RUN dotnet build "WebApiDocker.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
